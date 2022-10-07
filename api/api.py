@@ -6,6 +6,7 @@ import json
 from PIL import Image
 from fastapi import File,FastAPI
 import torch
+from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.encoders import jsonable_encoder
@@ -22,6 +23,16 @@ model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 # print(results.pandas().xyxy[0].to_json(orient="records"))
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def read_root():

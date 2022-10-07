@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 class App extends Component {
+    
     state = {
         // Initially, no file is selected
-        selectedFile: null,
+        selectedFile: /* `null` is a placeholder for the file that will be uploaded. */
+        null,
     };
 
     // On file select (from the pop up)
@@ -14,13 +16,13 @@ class App extends Component {
     };
 
     // On file upload (click the upload button)
-    onFileUpload = () => {
+    onFileUpload = async () => {
         // Create an object of formData
         const formData = new FormData();
 
         // Update the formData object
         formData.append(
-            "myFile",
+            "image",
             this.state.selectedFile,
             this.state.selectedFile.name
         );
@@ -30,7 +32,8 @@ class App extends Component {
 
         // Request made to the backend api
         // Send formData object
-        axios.post("api/uploadfile", formData);
+        let result = await axios.post("http://127.0.0.1:8000/objectdetection", formData);
+        console.log(result);
     };
 
     // File content to be displayed after
@@ -49,6 +52,7 @@ class App extends Component {
                         Last Modified:{" "}
                         {this.state.selectedFile.lastModifiedDate.toDateString()}
                     </p>
+                    
                 </div>
             );
         } else {
@@ -69,6 +73,7 @@ class App extends Component {
                 <div>
                     <input type="file" onChange={this.onFileChange} />
                     <button onClick={this.onFileUpload}>Upload!</button>
+                    
                 </div>
                 {this.fileData()}
             </div>
