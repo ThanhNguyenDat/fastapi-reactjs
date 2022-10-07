@@ -32,8 +32,16 @@ class App extends Component {
 
         // Request made to the backend api
         // Send formData object
-        let result = await axios.post("http://127.0.0.1:8000/objectdetection", formData);
+        const url = "http://127.0.0.1:8000/objectdetection"
+        let result = await axios.post(url, formData);
+        // console.log(result);
+        formData.append(
+            "result",
+            result
+        )
         console.log(result);
+
+        
     };
 
     // File content to be displayed after
@@ -52,7 +60,8 @@ class App extends Component {
                         Last Modified:{" "}
                         {this.state.selectedFile.lastModifiedDate.toDateString()}
                     </p>
-                    
+                    <img src={this.state.selectedFile} alt=""/>
+
                 </div>
             );
         } else {
@@ -68,7 +77,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h1>GeeksforGeeks</h1>
+                <h1>Hello anh Danh :D</h1>
                 <h3>File Upload using React!</h3>
                 <div>
                     <input type="file" onChange={this.onFileChange} />
