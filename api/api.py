@@ -88,4 +88,17 @@ async def objectdetection(image: UploadFile = File(None)):
                 "msg": str(e)
             })
 
+
+class ObjectDetection:
+    def __init__(self):
+        pass
+    
+    def file_or_url(self):
         
+        pass
+    
+    def read_file(self):
+        pass
+    
+    def predict(self):
+        pass
