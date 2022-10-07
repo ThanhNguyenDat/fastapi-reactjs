@@ -31,7 +31,7 @@
 
 `npm install`
 
-## Run server fastapi
+## Run server Fastapi
 `yarn start-api`
 
 
