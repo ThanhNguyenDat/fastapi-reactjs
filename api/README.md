@@ -1,4 +1,4 @@
-# fastapi_react_axios
+# FastAPI
 
 
 ## Quick run
