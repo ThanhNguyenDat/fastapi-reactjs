@@ -1,47 +1,23 @@
 const Pool = require('pg').Pool
-const pool = new Pool({
-    user: 'react_fastapi',
-    host: 'localhost',
-    database: 'db_test',
-    password: 'react_fastapi',
-    port: 5432,
-})
 
-const getMerchants = () => {
-    return new Promise(function (resolve, reject) {
-        pool.query('SELECT * FROM merchants ORDER BY id ASC', (error, results) => {
-            if (error) {
-                reject(error)
-            }
-            resolve(results.rows);
-        })
-    })
-}
-const createMerchant = (body) => {
-    return new Promise(function (resolve, reject) {
-        const { name, email } = body
-        pool.query('INSERT INTO merchants (name, email) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
-            if (error) {
-                reject(error)
-            }
-            resolve(`A new merchant has been added added: ${results.rows[0]}`)
-        })
-    })
-}
-const deleteMerchant = () => {
-    return new Promise(function (resolve, reject) {
-        const id = parseInt(request.params.id)
-        pool.query('DELETE FROM merchants WHERE id = $1', [id], (error, results) => {
-            if (error) {
-                reject(error)
-            }
-            resolve(`Merchant deleted with ID: ${id}`)
-        })
-    })
+async function connect_postgresql() {
+    try {
+        await new Pool({
+            user: 'react_fastapi',
+            host: 'localhost',
+            database: 'db_test',
+            password: 'react_fastapi',
+            port: 5432,
+        });
+
+        console.log("Postgresql connected");
+        
+        
+    }
+
+    catch (error) {
+        console.log('Postgresql connection error: ', error)
+    }
 }
 
-module.exports = {
-    getMerchants,
-    createMerchant,
-    deleteMerchant,
-}
+module.exports = { connect_postgresql };
