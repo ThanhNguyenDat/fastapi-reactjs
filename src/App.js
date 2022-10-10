@@ -18,7 +18,6 @@ class App extends Component {
     };
 
     
-
     // On file select (from the pop up)
     handleFileChange = (event) => {
         // Update the state

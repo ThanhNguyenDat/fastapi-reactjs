@@ -89,7 +89,6 @@ async def objectdetection(image: UploadFile = File(None)):
             "msg": "Success"
             })
        
-        
     except Exception as e:
         print(e)
         return jsonable_encoder({
