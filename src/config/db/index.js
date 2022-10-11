@@ -3,10 +3,10 @@ const Pool = require('pg').Pool
 async function connect_postgresql() {
     try {
         await new Pool({
-            user: 'react_fastapi',
             host: 'localhost',
-            database: 'db_test',
+            user: 'react_fastapi',
             password: 'react_fastapi',
+            database: 'image_stored',
             port: 5432,
         });
 
@@ -19,5 +19,7 @@ async function connect_postgresql() {
         console.log('Postgresql connection error: ', error)
     }
 }
+
+connect_postgresql();
 
 module.exports = { connect_postgresql };
