@@ -6,36 +6,42 @@ class App extends Component {
     state = {
         // Initially, no file is selected
         selectedFile: image_resource, /* `null` is a placeholder for the file that will be uploaded. */
+        sizeW: 1000,
+        sizeH: 1000,
         url: null,
         api_data: null
     };
 
 
-    async componentDidMount() {
+    componentDidMount() {
         const ctx = this.canvas_img.getContext("2d");
-        const  img_non = document.getElementById("img_none")
-        console.log(img_non.naturalWidth);
         
         // load image into canvas-img
         const img = new Image();
         img.src = this.state.selectedFile;
-        console.log(img);
+        this.setState({
+            sizeH: img.height,
+            sizeW: img.width
+        })
+
         // call api
         var x = 743;
         var y = 45;
         var w = 743 + 1149;
         var h = 45 + 720;
+
         img.onload = () => {
             // ctx.drawImage(img, 0, 0, this.canvas_img.width, this.canvas_img.height);
-            ctx.drawImage(img, 0, 0, img_non.naturalWidth, img_non.naturalHeight);
-
+            ctx.drawImage(img, 0, 0, this.state.sizeW, this.state.sizeH);
             // draw box
             ctx.beginPath();
             ctx.strokeStyle = 'red';
             ctx.lineWidth = 1;
-            ctx.rect(743, 45, 743 + 1149, 45 + 720);
+            // ctx.rect(x, y, w, h);
+            
             ctx.stroke();
-        }        
+        }   
+         
     }
 
 
@@ -43,13 +49,12 @@ class App extends Component {
         return (
         <div className="App">
             <h1>Hello</h1>
-            <canvas id="canvas-img" width={this.state.selectedFile.width} ref={canvas_img => this.canvas_img = canvas_img}>
-            </canvas>
-
-
-            <div className="NoneDisplay" hidden>
-                <img src={this.state.selectedFile} alt="" id="img_none"></img>
-            </div>
+            <canvas 
+                id="canvas-img" 
+                width={this.state.sizeW} 
+                height={this.state.sizeH} 
+                ref={canvas_img => this.canvas_img = canvas_img}
+            />
         </div>
 
         )

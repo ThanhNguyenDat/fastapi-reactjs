@@ -9,10 +9,8 @@ async function connect_postgresql() {
             database: 'image_stored',
             port: 5432,
         });
-
+        
         console.log("Postgresql connected");
-        
-        
     }
 
     catch (error) {
