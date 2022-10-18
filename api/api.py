@@ -73,6 +73,8 @@ async def objectdetection(image: UploadFile = File(None)):
             })
             
         results = model(img)
+        h, w, c = img.shape
+        
         results_json = json.loads(results.pandas().xyxy[0].to_json(orient="records"))
         
         n = len(results_json)
@@ -82,7 +84,7 @@ async def objectdetection(image: UploadFile = File(None)):
             results_json[i]['ymin'] = int(results_json[i]['ymin'])
             results_json[i]['xmax'] = int(results_json[i]['xmax'])
             results_json[i]['ymax'] = int(results_json[i]['ymax'])
-
+        
         return jsonable_encoder({
             "code": 200,
             "result": results_json,
