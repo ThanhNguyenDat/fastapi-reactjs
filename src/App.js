@@ -10,6 +10,14 @@ function App() {
   
   const ref = useRef();
 
+  useEffect(() => {
+
+    // Cleanup
+    return () => {
+      image && URL.revokeObjectURL(image.url);
+    }
+  }, [image])
+
   function handleChange(event) {
     const file = event.target.files[0];
 
