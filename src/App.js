@@ -1,9 +1,8 @@
-import { wait } from "@testing-library/user-event/dist/utils";
 import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 
 function App() {
-  const [url, setUrl] = useState();
+  // const [url, setUrl] = useState();
   const [image, setImage] = useState();
   const [result, setResult] = useState([]);
   const [imgW, setImgW] = useState(1000);
@@ -12,8 +11,13 @@ function App() {
   const ref = useRef();
 
   function handleChange(event) {
-    setImage(event.target.files[0]);
-    setUrl(URL.createObjectURL(event.target.files[0]));
+    const file = event.target.files[0];
+
+    file.url = URL.createObjectURL(file);
+    
+    setImage(file);
+    // setImage(event.target.files[0]);
+    // setUrl(URL.createObjectURL(event.target.files[0]));
   }
 
   async function onPredict(event) {
@@ -48,38 +52,38 @@ function App() {
     }
   }, [image])
 
-  useEffect(()=> {
-    const c = document.getElementById("canvas-img");
-    const ctx = c.getContext("2d");
+  // useEffect(()=> {
+  //   const c = document.getElementById("canvas-img");
+  //   const ctx = c.getContext("2d");
     
-    // Why call 3 times???
-    console.log("ctx: ", ctx);
+  //   // Why call 3 times???
+  //   console.log("ctx: ", ctx);
     
-    // initial and getsize image
-    const img = new Image();
-    img.src = image;
-    setImgH(img.height);
-    setImgW(img.width);
+  //   // initial and getsize image
+  //   const img = new Image();
+  //   img.src = image;
+  //   setImgH(img.height);
+  //   setImgW(img.width);
     
-    console.log("img.height: ", img.height)
-    console.log("imgH: ", imgH);
+  //   console.log("img.height: ", img.height)
+  //   console.log("imgH: ", imgH);
 
-    // load img and drawing box
-    img.onload = () => {
-      // ctx.drawImage(img, 0, 0, this.canvas_img.width, this.canvas_img.height);
-      ctx.drawImage(img, 0, 0, imgW, imgH);
-      // draw box
-      ctx.beginPath();
-      ctx.strokeStyle = 'red';
-      ctx.lineWidth = 1;
+  //   // load img and drawing box
+  //   img.onload = () => {
+  //     // ctx.drawImage(img, 0, 0, this.canvas_img.width, this.canvas_img.height);
+  //     ctx.drawImage(img, 0, 0, imgW, imgH);
+  //     // draw box
+  //     ctx.beginPath();
+  //     ctx.strokeStyle = 'red';
+  //     ctx.lineWidth = 1;
 
-      ctx.rect(10, 10, 100, 100);
+  //     ctx.rect(10, 10, 100, 100);
       
-      ctx.stroke();
-      console.log("DRAWED");
-  }
-    // img.src = image;
-  }, [image])
+  //     ctx.stroke();
+  //     console.log("DRAWED");
+  // }
+  //   // img.src = image;
+  // }, [image])
 
   return (
     <div className="App">
@@ -87,14 +91,17 @@ function App() {
       <input type="file" onChange={handleChange} />
       <button onClick={onPredict}>Predict!</button>
       <p/>
-      {/* <img src={url} alt="" height="480px" /> */}
+      
+      {image && (
+      <img src={image.url} alt="" height="480px" />
+      )}
 
-      <canvas 
+      {/* <canvas 
         id="canvas-img"
         width={imgW}
         height={imgH}
         ref={ref}
-      />
+      /> */}
 
     </div>
   );
