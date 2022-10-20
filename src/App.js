@@ -9,8 +9,6 @@ function App() {
   const [imgH, setImgH] = useState(1000);
   const img = new Image();
 
-  const ref = useRef();
-
   useEffect(() => {
 
     // Cleanup
@@ -52,15 +50,20 @@ function App() {
       setResult(data);
       console.log("Called API");
       
-      img.onload = () => {
+      // img.onload = () => {
+      //   setImgH(img.height);
+      //   setImgW(img.width);
+      // }
+
+      img.addEventListener("load", () => {
         setImgH(img.height);
         setImgW(img.width);
+      })
+      // img.src = image.url;
+      // Cleanup document
+      return () => {
+        img.removeEventListener("load");
       }
-      img.src = image.url;
-      
-      // Clean document
-      // return () => {
-      // }
       
     }
   }
@@ -84,20 +87,20 @@ function App() {
       ctx.beginPath();
       ctx.strokeStyle = 'red';
       ctx.lineWidth = 1;
-      ctx.rect(10, 10, 100, 100);
+      
+      // Drawing box
+      const boxs = result.data.result
+      console.log("Result: ", boxs);
+      boxs.map(box => ctx.rect(box.xmin, box.ymin, box.xmax, box.ymax))
+
+      // ctx.rect(10, 10, 100, 100);
       ctx.stroke();
       console.log("DRAWED");
-      console.log("img draw: ", img);
-      console.log("Height, Width: ", imgH, imgW);
-  }
+    }
 
     // // initial and getsize image
     img.src = image.url;
-    
-    // console.log("img.height: ", img.height)
-    // console.log("imgH: ", imgH);
 
-    // img.src = image;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result])
 
@@ -105,7 +108,8 @@ function App() {
     <div className="App">
       <h2>Thành nè</h2>
       <input type="file" onChange={handleChange} />
-      <button onClick={onPredict}>Predict!</button>
+      <p/>
+      <button onClick={onPredict}>Predict Vô Console coi result thôi nhé các anh =]]]!</button>
       <p/>
 {/*       
       {image && (
