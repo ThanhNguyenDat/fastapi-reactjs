@@ -7,7 +7,8 @@ function App() {
   const [result, setResult] = useState([]);
   const [imgW, setImgW] = useState(1000);
   const [imgH, setImgH] = useState(1000);
-  
+  const img = new Image();
+
   const ref = useRef();
 
   useEffect(() => {
@@ -20,7 +21,6 @@ function App() {
 
   function handleChange(event) {
     const file = event.target.files[0];
-
     file.url = URL.createObjectURL(file);
     
     setImage(file);
@@ -31,11 +31,12 @@ function App() {
   async function onPredict(event) {
     console.log("Result onPredict: ", result);
 
-    const {data} = await result.then(result => result);
-    console.log(data.result);
+    // const {data} = await result.then(result => result);
+    // console.log(data.result);
   }
 
-  useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const call_api = async ()=>{
     // call api
     const formData = new FormData();
 
@@ -47,51 +48,58 @@ function App() {
       )
 
       const url = "http://127.0.0.1:8000/objectdetection";
-      const data = axios.post(url, formData); // using with await
+      const data = await axios.post(url, formData); // using with await
       setResult(data);
       console.log("Called API");
       
-      // JSON.stringify
+      img.onload = () => {
+        setImgH(img.height);
+        setImgW(img.width);
+      }
+      img.src = image.url;
       
       // Clean document
-      return () => {
-
-      }
+      // return () => {
+      // }
+      
     }
+  }
+  
+  useEffect(() => {
+    call_api();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image])
 
-  // useEffect(()=> {
-  //   const c = document.getElementById("canvas-img");
-  //   const ctx = c.getContext("2d");
+  useEffect(()=> {
+    const c = document.getElementById("canvas-img");
+    const ctx = c.getContext("2d");
+    if (result.length === 0) return
+    // Why call 3 times???
+    console.log("ctx: ", ctx);
     
-  //   // Why call 3 times???
-  //   console.log("ctx: ", ctx);
-    
-  //   // initial and getsize image
-  //   const img = new Image();
-  //   img.src = image;
-  //   setImgH(img.height);
-  //   setImgW(img.width);
-    
-  //   console.log("img.height: ", img.height)
-  //   console.log("imgH: ", imgH);
+    // load img and drawing box
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+      // // draw box
+      ctx.beginPath();
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 1;
+      ctx.rect(10, 10, 100, 100);
+      ctx.stroke();
+      console.log("DRAWED");
+      console.log("img draw: ", img);
+      console.log("Height, Width: ", imgH, imgW);
+  }
 
-  //   // load img and drawing box
-  //   img.onload = () => {
-  //     // ctx.drawImage(img, 0, 0, this.canvas_img.width, this.canvas_img.height);
-  //     ctx.drawImage(img, 0, 0, imgW, imgH);
-  //     // draw box
-  //     ctx.beginPath();
-  //     ctx.strokeStyle = 'red';
-  //     ctx.lineWidth = 1;
+    // // initial and getsize image
+    img.src = image.url;
+    
+    // console.log("img.height: ", img.height)
+    // console.log("imgH: ", imgH);
 
-  //     ctx.rect(10, 10, 100, 100);
-      
-  //     ctx.stroke();
-  //     console.log("DRAWED");
-  // }
-  //   // img.src = image;
-  // }, [image])
+    // img.src = image;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result])
 
   return (
     <div className="App">
@@ -99,17 +107,16 @@ function App() {
       <input type="file" onChange={handleChange} />
       <button onClick={onPredict}>Predict!</button>
       <p/>
-      
+{/*       
       {image && (
       <img src={image.url} alt="" height="480px" />
-      )}
+      )} */}
 
-      {/* <canvas 
+      <canvas 
         id="canvas-img"
-        width={imgW}
-        height={imgH}
-        ref={ref}
-      /> */}
+        width={1000}
+        height={1000}
+      />
 
     </div>
   );
