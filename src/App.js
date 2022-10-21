@@ -34,7 +34,7 @@ function App() {
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const call_api = async ()=>{
+  const call_api = async (image)=>{
     // call api
     const formData = new FormData();
 
@@ -44,7 +44,6 @@ function App() {
         image,
         image.name
       )
-
       const url = "http://127.0.0.1:8000/objectdetection";
       const data = await axios.post(url, formData); // using with await
       setResult(data);
@@ -54,9 +53,7 @@ function App() {
   }
   
   useEffect(() => {
-    call_api();
-
-    
+    call_api(image);
     const loadImage = () => {
       setImgH(img.height);
       setImgW(img.width);
@@ -97,7 +94,6 @@ function App() {
       console.log("Result: ", boxs);
       boxs.map(box => ctx.rect(x + box.xmin * scale, y + box.ymin * scale, x + (box.xmax - box.xmin) * scale, y + (box.ymax - box.ymin) * scale))
 
-      // ctx.rect(10, 10, 100, 100);
       ctx.stroke();
       console.log("DRAWED");
     }
