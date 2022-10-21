@@ -50,26 +50,26 @@ function App() {
       setResult(data);
       console.log("Called API");
       
-      // img.onload = () => {
-      //   setImgH(img.height);
-      //   setImgW(img.width);
-      // }
-
-      img.addEventListener("load", () => {
-        setImgH(img.height);
-        setImgW(img.width);
-      })
-      // img.src = image.url;
-      // Cleanup document
-      return () => {
-        img.removeEventListener("load");
-      }
-      
     }
   }
   
   useEffect(() => {
     call_api();
+
+    
+    const loadImage = () => {
+      setImgH(img.height);
+      setImgW(img.width);
+    }
+
+    img.addEventListener("load", loadImage)
+    // img.src = image.url;
+    
+    // Cleanup event
+    return () => {
+      img.removeEventListener("load", loadImage);
+    }
+      
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image])
 
@@ -82,7 +82,11 @@ function App() {
     
     // load img and drawing box
     img.onload = () => {
-      ctx.drawImage(img, 0, 0);
+      var scale = Math.min(c.width / imgW, c.height / imgH);
+      var x = (c.width / 2) - (imgW / 2) * scale;
+      var y = (c.height / 2) - (imgH / 2) * scale;
+      ctx.drawImage(img, x, y, imgW * scale, imgH * scale);
+
       // // draw box
       ctx.beginPath();
       ctx.strokeStyle = 'red';
@@ -91,7 +95,7 @@ function App() {
       // Drawing box
       const boxs = result.data.result
       console.log("Result: ", boxs);
-      boxs.map(box => ctx.rect(box.xmin, box.ymin, box.xmax, box.ymax))
+      boxs.map(box => ctx.rect(x + box.xmin * scale, y + box.ymin * scale, x + (box.xmax - box.xmin) * scale, y + (box.ymax - box.ymin) * scale))
 
       // ctx.rect(10, 10, 100, 100);
       ctx.stroke();
@@ -118,8 +122,7 @@ function App() {
 
       <canvas 
         id="canvas-img"
-        width={1000}
-        height={1000}
+        style={{width:"100vw", height:"80vh"}}
       />
 
     </div>
