@@ -1,3 +1,4 @@
+import { getByPlaceholderText } from "@testing-library/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -19,21 +20,16 @@ function App() {
 
   function handleChange(event) {
     const file = event.target.files[0];
-    file.url = URL.createObjectURL(file);
-    
-    setImage(file);
-    // setImage(event.target.files[0]);
-    // setUrl(URL.createObjectURL(event.target.files[0]));
+    if (file) {
+      file.url = URL.createObjectURL(file);
+      setImage(file);
+    }
   }
 
   async function onPredict(event) {
     console.log("Result onPredict: ", result);
-
-    // const {data} = await result.then(result => result);
-    // console.log(data.result);
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const call_api = async (image)=>{
     // call api
     const formData = new FormData();
@@ -60,7 +56,6 @@ function App() {
     }
 
     img.addEventListener("load", loadImage)
-    // img.src = image.url;
     
     // Cleanup event
     return () => {
@@ -90,9 +85,19 @@ function App() {
       ctx.lineWidth = 1;
       
       // Drawing box
-      const boxs = result.data.result
+      var boxs = result.data.result
+      console.log("x, y, w, h", x, y, imgW*scale, imgH*scale);
       console.log("Result: ", boxs);
-      boxs.map(box => ctx.rect(x + box.xmin * scale, y + box.ymin * scale, x + (box.xmax - box.xmin) * scale, y + (box.ymax - box.ymin) * scale))
+      
+
+      console.log(boxs);
+      // DRAW ???
+      boxs.map(box => {
+        var w = (imgW / 2) - ((box.xmax - box.xmin) / 2) * scale;
+        var h = (imgH / 2) - ((box.ymax - box.ymin) / 2) * scale;
+        ctx.rect(x + box.xmin*scale, y + box.ymin*scale, x + (box.xmax - box.xmin) * scale, y + (box.ymax - box.ymin) * scale)
+      })
+      // ctx.rect(x + boxs[0].xmin, y, boxs[0].xmax, boxs[0].ymax)
 
       ctx.stroke();
       console.log("DRAWED");
