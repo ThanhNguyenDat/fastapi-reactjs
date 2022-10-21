@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
   // const [url, setUrl] = useState();
@@ -81,7 +81,7 @@ function App() {
     console.log("ctx: ", ctx);
     
     // load img and drawing box
-    img.onload = () => {
+    const onLoad = () => {
       var scale = Math.min(c.width / imgW, c.height / imgH);
       var x = (c.width / 2) - (imgW / 2) * scale;
       var y = (c.height / 2) - (imgH / 2) * scale;
@@ -102,9 +102,19 @@ function App() {
       console.log("DRAWED");
     }
 
+    img.addEventListener("load", onLoad)
+    
     // // initial and getsize image
     img.src = image.url;
-
+    
+    // Cleanup event and fill canvas
+    return () => {
+      img.removeEventListener("load", onLoad)
+      ctx.beginPath();
+      ctx.rect(0, 0, c.width, c.height);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result])
 
