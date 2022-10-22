@@ -40,7 +40,7 @@ def read_root():
     return {"Hello": "World"}
 
 @app.post("/objectdetection/")
-async def objectdetection(image: UploadFile = File(None)):
+async def objectdetection(image: UploadFile = File(None), file_name: str = None):
     try:
         # print("CHECK: ", image)
         # obj = ObjectDetection(image)
@@ -71,10 +71,13 @@ async def objectdetection(image: UploadFile = File(None)):
                 "error_code": 3,
                 "msg": "Input is not an image"
             })
-            
-        results = model(img)
-        h, w, c = img.shape
+        # save image
+        print(file_name)
+        if file_name:
+            cv2.imwrite(file_name, img)
         
+        # predict model
+        results = model(img)
         results_json = json.loads(results.pandas().xyxy[0].to_json(orient="records"))
         
         # n = len(results_json)
