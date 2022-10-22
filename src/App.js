@@ -94,9 +94,10 @@ function App() {
 
         console.log(boxs);
         // DRAW ???
-        // boxs.map(box => {
-        //   ctx.rect(x + box.xmin*scale, y + box.ymin*scale, x + (box.xmax - box.xmin) * scale, y + (box.ymax - box.ymin) * scale)
-        // })
+        // eslint-disable-next-line array-callback-return
+        boxs.map(box => {
+          ctx.rect(x + box.xmin*scale, y + box.ymin*scale, (box.xmax - box.xmin) * scale, (box.ymax - box.ymin) * scale);
+        })
         // ctx.rect(x + boxs[0].xmin, y, boxs[0].xmax, boxs[0].ymax)
 
         ctx.stroke();
