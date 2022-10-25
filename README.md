@@ -37,3 +37,7 @@
 
 ## Run server React
 `yarn start`
+
+## Plan
+- Add chatbot
+- Postgres
