@@ -1,15 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 
+import CanvasImage from "./components/CanvasImage"
+
 function App() {
   // const [url, setUrl] = useState();
   const [image, setImage] = useState();
   const [result, setResult] = useState([]);
   const [imgW, setImgW] = useState(1000);
   const [imgH, setImgH] = useState(1000);
-  const img = new Image();
-
+  
   const canvas_ref = useRef();
+
+  const img = new Image();
 
   useEffect(() => {
     call_api(image);
@@ -145,6 +148,7 @@ function App() {
         ref = {canvas_ref}
       />
 
+      <CanvasImage />
 
     </div>
   );
