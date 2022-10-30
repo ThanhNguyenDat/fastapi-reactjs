@@ -1,0 +1,5 @@
+mtcnn
+dlib
+opencv-python-headless
+imutils
+rasa

@@ -1,0 +1,5 @@
+mtcnn
+flask
+dlib
+opencv-python-headless
+imu

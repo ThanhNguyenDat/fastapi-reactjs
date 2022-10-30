@@ -1,0 +1,8 @@
+mtcnn
+flask
+dlib
+opencv-python-headless
+imutils
+rasa
+sanic==21.9.3
+keras==2.6
