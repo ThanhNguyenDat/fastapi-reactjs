@@ -47,17 +47,19 @@
 
 
 ## Initial environment
-
 `npm install`
+`cd client && npm install`
+`cd server && npm install`
 
 ## Run server Fastapi
-`yarn start-api`
-
+`npm run start-api-object-detection`
 
 ## Run server React
-`yarn start`
+`npm run start-reactjs`
+
+## Run chatbot rasa api
+`npm run start-rasabot-api`
 
 ## Plan
-- Add chatbot
-- Postgres
-- firebase
+- firebase <-> React
+- server nodejs configing
