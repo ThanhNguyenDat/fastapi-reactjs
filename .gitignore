@@ -26,6 +26,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .history
-venv
 rasabot/ZABot/models/*
 
