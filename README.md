@@ -63,3 +63,4 @@
 ## Plan
 - firebase <-> React
 - server nodejs configing
+- adding api/crawl_data: image from keyword and mp3 from url
