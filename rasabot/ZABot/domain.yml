@@ -8,6 +8,23 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - gioiThieuZAC
+  - yNghiaZAC
+  - btc
+  - doiTuongThamGia
+  - quyenLoiKhiThamGia
+  - traoGiai
+  - taiLieuThamKhao
+  - quiCheCuocThi
+  - deThi
+  - dangKi
+  - duLieu
+  - hinhThucNopBai
+  - tieuChiDanhGia
+  - cacMocThoiGian
+  - gapTongDaiVien
+  - hoTro
+  - tinhNang
 
 responses:
   utter_greet:
@@ -28,6 +45,41 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_gioiThieuZAC:
+  - text: ""
+  utter_yNghiaZAC:
+  - text: ""
+  utter_btc:
+  - text: ""
+  utter_doiTuongThamGia:
+  - text: ""
+  utter_quyenLoiKhiThamGia:
+  - text: ""
+  utter_traoGiai:
+  - text: ""
+  utter_taiLieuThamKhao:
+  - text: ""
+  utter_quiCheCuocThi:
+  - text: ""
+  utter_deThi:
+  - text: ""
+  utter_dangKi:
+  - text: ""
+  utter_duLieu:
+  - text: ""
+  utter_hinhThucNopBai:
+  - text: ""
+  utter_tieuChiDanhGia:
+  - text: ""
+  utter_cacMocThoiGian:
+  - text: ""
+  utter_gapTongDaiVien:
+  - text: ""
+  utter_hoTro:
+  - text: ""
+  utter_tinhNang:
+  - text: ""
 
 session_config:
   session_expiration_time: 60
