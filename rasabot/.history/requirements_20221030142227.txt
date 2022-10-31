@@ -1,4 +1,0 @@
-mtcnn
-flask
-dlib
-opencv-python-

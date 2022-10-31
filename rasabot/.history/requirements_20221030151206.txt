@@ -1,6 +1,0 @@
-mtcnn
-# flask
-dlib
-opencv-python-headless
-imutils
-rasa

@@ -60,13 +60,13 @@ function App() {
         boxs.map(box => {
           ctx.strokeStyle = 'red';
           ctx.lineWidth = 1;
-
-          // box.xmin = Math.floor(box.xmin);
-          // box.ymin = Math.floor(box.ymin);
-          // box.xmax = Math.floor(box.xmax);
-          // box.ymax = Math.floor(box.ymax);
-
-          ctx.rect(x + box.xmin * scale, y + box.ymin * scale, (box.xmax - box.xmin) * scale, (box.ymax - box.ymin) * scale);
+          
+          // ctx.rect(x + box.xmin * scale, y + box.ymin * scale, (box.xmax - box.xmin) * scale, (box.ymax - box.ymin) * scale);
+          ctx.moveTo(x + box.xmin * scale, y + box.ymin * scale);
+          ctx.lineTo(x + box.xmax * scale, y + box.ymin * scale);
+          ctx.lineTo(x + box.xmax * scale, y + box.ymax * scale);
+          ctx.lineTo(x + box.xmin * scale, y + box.ymax * scale);
+          ctx.lineTo(x + box.xmin * scale, y + box.ymin * scale);
         })
 
         ctx.stroke();
