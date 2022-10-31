@@ -1,0 +1,20 @@
+{
+  "name": "fastapi-reactjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-api-object":"", 
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThanhNguyenDat/fastapi-reactjs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThanhNguyenDat/fastapi-reactjs/issues"
+  },
+  "homepage": "https://github.com/ThanhNguyenDat/fastapi-reactjs#readme"
+}

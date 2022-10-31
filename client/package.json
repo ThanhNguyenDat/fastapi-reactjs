@@ -28,7 +28,6 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "start-api": "cd .. && cd api/object_detection && bash start_api.sh",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
