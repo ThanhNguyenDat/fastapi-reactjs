@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-api-object-detection": "cd api/object_detection && bash start_api.sh", 
-    "start-client": "cd client && npm run start",
-    
+    "start-nodejs": "cd server && npm run start",
+    "start-reactjs": "cd client && npm run start",
+    "start-api-object-detection": "cd api/object_detection && bash start_api.sh",
+    "start-rasabot-api": "cd rasabot && bash start_bot.sh",
+
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/ThanhNguyenDat/fastapi-reactjs/issues"
   },
-  "homepage": "https://github.com/ThanhNguyenDat/fastapi-reactjs#readme"
+  "homepage": "https://github.com/ThanhNguyenDat/fastapi-reactjs#readme",
+  "dependencies": {
+    "react-icons": "^4.6.0"
+  }
 }
