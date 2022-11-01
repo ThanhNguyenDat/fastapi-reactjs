@@ -1,12 +1,11 @@
-import './App.css';
-import { Routes, Route, Link } from 'react-router-dom';
-
-import UIChatbot from "./components/Chatbot/Chatbot"
-import ImageObjectDetection from "./components/ImageObjectDetection/ImageObjectDetection"
-import HomePage from './components/HomePage/HomePage';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { publicRoutes } from './routes';
+import { DefaultLayout } from './components/Layout';
+import { Fragment } from 'react';
 
 function App() {
   return (
+    <Router>
     <div className="App">
       <nav>
         <ul>
@@ -14,20 +13,38 @@ function App() {
             <Link to='/'>HomePage</Link>
           </li>
           <li>
-            <Link to='/chatbot'>Chatbot</Link>
+            <Link to='/rasabot'>Chatbot</Link>
           </li>
           <li>
-            <Link to='/imageobjectdetection'>imageobjectdetection</Link>
+            <Link to='/object_detection'>imageobjectdetection</Link>
           </li>
         </ul>
       </nav>
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/chatbot" element={<UIChatbot />} />
-        <Route path="/imageobjectdetection" element={<ImageObjectDetection />} />
+        {publicRoutes.map((route, index) => {
+          
+          let Layout = DefaultLayout;
+
+          if ( route.layout ) {
+            Layout = route.layout;
+          } else if (route.layout === null) {
+            Layout = Fragment;
+          }
+
+          const Page = route.component;
+
+          return <Route 
+                  key={index} 
+                  path={route.path} 
+                  element={
+                    <Layout>
+                      <Page />
+                    </Layout>} />;
+          })}
       </Routes>
     </div>
+    </Router>
   );
 }
 
